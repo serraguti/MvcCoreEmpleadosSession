@@ -1,0 +1,64 @@
+﻿@model List<Empleado>
+
+@{
+    ViewData["Title"] = "EmpleadosAlmacenadosCorrecto";
+}
+
+<h1 style="color:blue">Empleados Almacenados Session</h1>
+<a asp-controller="Empleados"
+   asp-action="SessionEmpleadosCorrecto">
+    Volver Almacenar Empleados
+</a>
+
+
+@if (Context.Session.GetString("IDSEMPLEADOS") == null)
+{
+    <h2 style="color:red">
+        No existen empleados en Session
+    </h2>
+}
+
+@if (Model != null)
+{
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                @*<td></td>*@
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Apellido</td>
+                    <td>@item.Oficio</td>
+                    <td>@item.Salario</td>
+                    @*<td>
+                        <input type="text"/>
+                    </td>*@
+                    <td>
+                        <a asp-controller="Empleados"
+                           asp-action="EmpleadosAlmacenadosCorrecto"
+                           class="btn btn-danger"
+                           asp-route-ideliminar="@item.IdEmpleado">
+                            Eliminar Session
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*<button class="btn btn-success">
+        Comprar empleados
+    </button>*@
+}
+else
+{
+    @*<h2 style="color:red">
+        No existen empleados en Session
+    </h2>*@
+}

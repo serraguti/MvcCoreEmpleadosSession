@@ -11,7 +11,8 @@ namespace MvcCoreEmpleadosSession.Repositories
     {
         private EmpleadosContext context;
 
-        public RepositoryEmpleados(EmpleadosContext context)
+        public RepositoryEmpleados
+            (EmpleadosContext context)
         {
             this.context = context;
         }
@@ -19,6 +20,33 @@ namespace MvcCoreEmpleadosSession.Repositories
         public List<Empleado> GetEmpleados()
         {
             return this.context.Empleados.ToList();
+        }
+
+        public Empleado FindEmpleado(int idempleado)
+        {
+            return
+                this.context.Empleados
+                .SingleOrDefault(x => x.IdEmpleado == idempleado);
+        }
+
+        public Empleado BuscarEmpleado(string apellido)
+        {
+            return this.context.Empleados
+                .FirstOrDefault(x => x.Apellido == apellido);
+        }
+
+        public List<Empleado> GetEmpleadosSession(List<int> idsEmpleados)
+        {
+            //CUANDO UTILIZAMOS BUSQUEDA EN COLECCIONES SE UTILIZA
+            //EL METODO Contains
+            var consulta = from datos in this.context.Empleados
+                           where idsEmpleados.Contains(datos.IdEmpleado)
+                           select datos;
+            if (consulta.Count() == 0)
+            {
+                return null;
+            }
+            return consulta.ToList();
         }
     }
 }

@@ -25,17 +25,32 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" 
-                               asp-controller="Empleados" asp-action="SessionSalarios">
-                                Empleados Session
+                            <a class="nav-link text-info"
+                               asp-controller="Empleados" 
+                               asp-action="SessionEmpleadosCorrecto">
+                                Session Empleados Correcto
                             </a>
                         </li>
+                        <partial name="_MenuEmpleado"/>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-danger"
+                               asp-controller="Empleados" asp-action="SessionEmpleados">
+                                Session Empleados
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-controller="Empleados" asp-action="SessionSalarios">
+                                Session Salarios
+                            </a>
+                        </li>*@
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+        <partial name="_CarritoEmpleados" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

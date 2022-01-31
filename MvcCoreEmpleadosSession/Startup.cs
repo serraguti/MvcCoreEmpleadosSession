@@ -31,10 +31,14 @@ namespace MvcCoreEmpleadosSession
             services.AddTransient<RepositoryEmpleados>();
             services.AddDbContext<EmpleadosContext>
                 (options => options.UseSqlServer(cadena));
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -53,7 +57,7 @@ namespace MvcCoreEmpleadosSession
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
